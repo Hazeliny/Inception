@@ -1,0 +1,121 @@
+#Network
+networks:
+  inception:
+    name: inception
+    driver: bridge
+
+#Volumes
+volumes:
+  mariadb_data:
+    driver: local
+  wordpress_data:
+    driver: local
+  portainer_data:
+    driver: local
+  redis_data:
+    driver: local
+
+#Services
+services:
+  #Nginx
+  nginx:
+    build: ./requirements/nginx
+    container_name: nginx
+    ports:
+      - 443:443
+    depends_on:
+      mariadb:
+        condition: service_healthy
+      wordpress:
+        condition: service_started
+      portainer:
+        condition: service_started
+    volumes:
+      - wordpress_data:/var/www/html
+    env_file:
+      - .env
+    restart: always
+    networks:
+      - inception
+
+  #Mariadb
+  mariadb:
+    build: ./requirements/mariadb
+    container_name: mariadb
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    env_file:
+      - .env
+    restart: always
+    networks:
+      - inception
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-uroot", "-p${SQL_ROOT_PASSWORD}"]
+      interval: 10s
+      retries: 5
+      timeout: 5s
+
+  #Wordpress
+  wordpress:
+    build: ./requirements/wordpress
+    container_name: wordpress
+    volumes:
+      - wordpress_data:/var/www/html
+    env_file:
+      - .env
+    restart: always
+    networks:
+      - inception
+
+  #Pure-FTPd
+  ftp:
+    build: ./requirements/ftp
+    container_name: ftp
+    ports:
+      - "2121:2121"
+      - "21100-21110:21100-21110"
+    volume:
+      - wordpress_data:/home/$FTP_USER
+    restart: always
+    env_file:
+      - .env
+    networks:
+      - inception
+  #Redis
+  redis:
+    build: ./requirements/redis
+    container_name: redis
+    restart: always
+    networks:
+      - inception
+    volumes:
+      - redis_data:/data
+  #Adminer
+  adminer:
+    build: ./requirements/adminer
+    container_name: adminer
+    port:
+      - "8082:80"
+    restart: always
+    networks:
+      - inception
+  #Go-web
+  go-web:
+    build: ./requirements/go-web
+    container_name: go-web
+    ports:
+      - "8080:8080"
+    networks:
+      - inception
+  #Portainer
+  portainer:
+    build: ./requirements/portainer
+    container_name: portainer
+    ports:
+      - "9443:9443"
+    volumes:
+      - portainer_data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+    networks:
+      -inception
