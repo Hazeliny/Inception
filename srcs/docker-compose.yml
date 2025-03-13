@@ -74,7 +74,7 @@ services:
     ports:
       - "2121:2121"
       - "21100-21110:21100-21110"
-    volume:
+    volumes:
       - wordpress_data:/home/$FTP_USER
     restart: always
     env_file:
@@ -94,7 +94,7 @@ services:
   adminer:
     build: ./requirements/adminer
     container_name: adminer
-    port:
+    ports:
       - "8082:80"
     restart: always
     networks:
@@ -118,4 +118,4 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     restart: always
     networks:
-      -inception
+      - inception

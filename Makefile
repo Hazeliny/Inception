@@ -1,10 +1,13 @@
+
+DOCKER_COMPOSE := /usr/bin/docker compose
+
 up:
 	@echo "Starting containers"
 	mkdir -p ${HOME}/data/wordpress
 	mkdir -p ${HOME}/data/mysql
 	sudo chmod -R 777 ${HOME}/data
 	sudo chown -R $(USER) $(HOME)/data
-	docker compose --env-file ./srcs/.env -f ./srcs/docker-compose.yml up -d --build
+	$(DOCKER_COMPOSE) --env-file ./srcs/.env -f ./srcs/docker-compose.yml up -d --build
 
 down:
 	docker compose -f ./srcs/docker-compose.yml down --remove-orphans
