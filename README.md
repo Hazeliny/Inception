@@ -3,6 +3,40 @@
 
 https://github.com/mharriso/school21-checklists/blob/master/ng_3_inception.pdf
 
+simple setup
+open https://linyao.42.fr access the wordpress website
+http://linyao.42.fr will be redirected to port 443 https
+or
+command:curl -v http://linyao.42.fr  
+display:connect to 127.0.0.1 port 80 failed: Connection refused
+command:curl -v https://linyao.42.fr
+display:Connected to linyao.42.fr (127.0.0.1) port 443 (#0)  and  TLSv1.3 list
+
+
+
+docker network
+command: docker network ls
+explain docker-network
+
+nginx with SSL/TLS
+command: docker-compose ps (must run the command in the folder srcs/)
+try to access nginx service via http: curl -I http://localhost (cannot connect)
+(optional: before this command, you can use "docker ps" to get the container id, then use "docker exec -it <CONTAINER_ID> nginx -t",  successful message)
+
+
+
+Wordpress with php-fpm and its volume
+command: docker volume ls
+docker volume inspect srcs_wordpress_data
+(this is a named volume managed in the docker internally instead of bind mount controlled by host)
+
+
+
+
+
+
+
+
 1. docker stop $(docker ps -qa)
 
 docker ps -qa：列出所有容器（包括运行中的和已停止的），只显示容器 ID。

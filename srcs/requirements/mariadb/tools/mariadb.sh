@@ -7,7 +7,7 @@ if [ -z "$SQL_ROOT_PASSWORD" ] || [ -z "$SQL_DATABASE" ] || [ -z "$SQL_USER" ] |
 fi
 
 #2 Volume check
-[ ! -d "$HOME/data/mysql" ] && mkdir -p "$Home/data/mysql"
+[ ! -d "$HOME/data/mysql" ] && mkdir -p "$HOME/data/mysql"
 
 #3 Mariadb service start and wait for it to be ready
 service mariadb start

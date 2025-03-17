@@ -6,7 +6,6 @@ RUN apt update && apt install -y nginx openssl
 
 #Creation of necessary directories for SSL
 RUN mkdir -p /etc/nginx/ssl
-#RUN chmod 644 /
 
 #Generation of self-signed SSL certificate
 RUN openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt -keyout /etc/nginx/ssl/inception.key -subj "/C=ES/ST=Catalunya/L=Barcelona/O=42/OU=42/CN=linyao.42.fr/UID=linyao"

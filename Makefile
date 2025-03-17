@@ -1,8 +1,6 @@
 
-#DOCKER_COMPOSE := /usr/bin/docker compose
-
 up:
-	@echo "Starting containers"
+	@echo "Starting containers!"
 	mkdir -p ${HOME}/data/wordpress
 	mkdir -p ${HOME}/data/mysql
 	sudo chmod -R 777 ${HOME}/data
@@ -33,7 +31,7 @@ fclean:
 	sudo rm -rf ${HOME}/data/mysql ${HOME}/data/wordpress
 
 database:
-	@docker exec -it mariadb -u linyao -p
+	@docker exec -it mariadb mariadb -u linyao -p
 
 database_root:
-	@docker exec -it mariadb -u root -p
+	@docker exec -it mariadb mariadb -u root -p

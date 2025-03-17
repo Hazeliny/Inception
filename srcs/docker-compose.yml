@@ -1,4 +1,4 @@
-version: '3.8'
+#version: '3.8'
 #Network
 networks:
   inception:
@@ -68,6 +68,15 @@ services:
     networks:
       - inception
 
+  # Go-web
+  go-web:
+    build: ./requirements/go-web
+    container_name: go-web
+    ports:
+      - "8080:8080"
+    networks:
+      - inception
+
   #Pure-FTPd
   ftp:
     build: ./requirements/ftp
@@ -82,6 +91,7 @@ services:
       - .env
     networks:
       - inception
+
   #Redis
   redis:
     build: ./requirements/redis
@@ -91,6 +101,7 @@ services:
       - inception
     volumes:
       - redis_data:/data
+  
   #Adminer
   adminer:
     build: ./requirements/adminer
@@ -100,14 +111,7 @@ services:
     restart: always
     networks:
       - inception
-  #Go-web
-  go-web:
-    build: ./requirements/go-web
-    container_name: go-web
-    ports:
-      - "8080:8080"
-    networks:
-      - inception
+  
   #Portainer
   portainer:
     build: ./requirements/portainer
