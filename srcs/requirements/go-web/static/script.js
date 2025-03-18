@@ -4,6 +4,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // Add event listener to the button
     var button = document.getElementById("myButton");
     button.addEventListener("click", function() {
-        alert("Remember the Neighbours");
+        alert("Protect the cat food!!");
     });
 });
