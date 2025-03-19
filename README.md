@@ -1,7 +1,6 @@
 # Inception
 
 
-https://github.com/mharriso/school21-checklists/blob/master/ng_3_inception.pdf
 
 simple setup
 open https://linyao.42.fr access the wordpress website
