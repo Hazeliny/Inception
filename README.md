@@ -287,43 +287,53 @@ http://localhost:8080
 
 1. docker stop $(docker ps -qa)
 
+```
 docker ps -qa：列出所有容器（包括运行中的和已停止的），只显示容器 ID。
 
 docker stop $(...)：停止所有容器。
+```
 
 作用：停止所有容器。
 
 2. docker rm $(docker ps -qa)
 
+```
 docker ps -qa：同上，列出所有容器 ID。
 
 docker rm $(...)：删除所有容器。
+```
 
 作用：删除所有容器。
 
 3. docker rmi -f $(docker image -qa)
 
+```
 docker image -qa：列出所有镜像的 ID。
 
 docker rmi -f $(...)：强制删除所有镜像。
+```
 
 作用：删除所有 Docker 镜像。
 
 4. docker volume rm $(docker volume ls -q)
 
+```
 docker volume ls -q：列出所有 Docker 卷的 ID。
 
 docker volume rm $(...)：删除所有 Docker 卷。
+```
 
 作用：删除所有 Docker 数据卷（持久化存储）。
 
 5. docker network rm $(docker network ls -q) >2/dev/null
 
+```
 docker network ls -q：列出所有 Docker 网络的 ID。
 
 docker network rm $(...)：删除所有 Docker 网络（默认网络可能无法删除）。
 
 \>2/dev/null：将错误输出重定向到 /dev/null，避免显示错误信息（例如尝试删除默认网络时报错）。
+```
 
 作用：删除所有 Docker 网络，忽略报错信息。
 
