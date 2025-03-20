@@ -1,10 +1,10 @@
 
 up:
 	@echo "Starting containers!"
-	mkdir -p ${HOME}/data/wordpress
-	mkdir -p ${HOME}/data/mysql
-	sudo chmod -R 777 ${HOME}/data
-	sudo chown -R $(USER) $(HOME)/data
+#	mkdir -p ${HOME}/data/wordpress
+#	mkdir -p ${HOME}/data/mysql
+#	sudo chmod -R 777 ${HOME}/data
+#	sudo chown -R $(USER) $(HOME)/data
 	docker compose --env-file ./srcs/.env -f ./srcs/docker-compose.yml up -d --build
 
 down:
@@ -28,7 +28,8 @@ fresh:
 
 fclean:
 	$(MAKE) clean
-	sudo rm -rf ${HOME}/data/mysql ${HOME}/data/wordpress
+#	sudo rm -rf ${HOME}/data/mysql ${HOME}/data/wordpress
+	@if [ -n "$$(docker volume ls -q)" ]; then docker volume rm $$(docker volume ls -q); fi
 
 database:
 	@docker exec -it mariadb mariadb -u linyao -p
